@@ -3,15 +3,19 @@
 // !! Simülasyonda motorlar +1 den başladığı için bende bu sapmayı ekledim.
 int sapma = 1;
 // !!
+// Motorlar
 Stepmotor motor1(10, 11, 12, 13); // Yatay Haraket Sağlayacak |x| <= 25 cm
 Stepmotor motor2(6, 7, 8, 9); // Dikey Haraket Sağlayacak 0 <= x <= 15 cm
 Stepmotor motor3(2, 3, 4, 5); // Dönme haraketi Sağlayacak |deg| <= 45°
+// Konumlar
 float dikeykonum = 0; // 0 <= x <= 15 cm
 float yataykonum = 0; // |x| <= 25 cm
 float donmeacisi = 0; // |deg| <= 45°
+// Hız ayarıyla ilgili şeyler
 int hiz = 3;
 String strhiz[] = {"1", "2", "3", "4", "5"};
-bool firstTime = true;
+int inthiz[] = {10, 25, 50, 100, 200};
+
 void setup() {
   Serial.begin(9600);
   motor1.setSpeed(50); // 10    25    50    100     200
@@ -172,6 +176,9 @@ void hizAyarla(){
   if(a > 48 && a < 54){
     hiz = a - 48;
     Serial.println("Yeni hiz ayariniz : " + strhiz[hiz - 1]);
+    motor1.setSpeed(inthiz[hiz - 1]);
+    motor2.setSpeed(inthiz[hiz - 1]);
+    motor3.setSpeed(inthiz[hiz - 1]);
   }
   else{
     Serial.println("Yanlis giris");
